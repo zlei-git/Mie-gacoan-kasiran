@@ -12,6 +12,9 @@ $_SERVER['APP_DEBUG'] = 'true';
 putenv("CACHE_STORE=array");
 putenv("SESSION_DRIVER=cookie");
 putenv("LOG_CHANNEL=stderr");
+putenv("APP_MAINTENANCE_DRIVER=file");
+$_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
+$_SERVER['APP_MAINTENANCE_DRIVER'] = 'file';
 putenv("VERCEL=1");
 
 $tmpStorage = '/tmp/storage';
