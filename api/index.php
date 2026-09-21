@@ -15,17 +15,38 @@ putenv("LOG_CHANNEL=stderr");
 putenv("VERCEL=1");
 
 $tmpStorage = '/tmp/storage';
+$bootstrapCache = $tmpStorage . '/bootstrap/cache';
 $dirs = [
     $tmpStorage . '/framework/views',
     $tmpStorage . '/framework/sessions',
     $tmpStorage . '/framework/cache/data',
-    $tmpStorage . '/logs'
+    $tmpStorage . '/logs',
+    $bootstrapCache
 ];
 foreach ($dirs as $dir) {
     if (!is_dir($dir)) {
         @mkdir($dir, 0777, true);
     }
 }
+
+// Ensure Laravel points its bootstrap caches to writable /tmp
+putenv("APP_SERVICES_CACHE={$bootstrapCache}/services.php");
+putenv("APP_PACKAGES_CACHE={$bootstrapCache}/packages.php");
+putenv("APP_CONFIG_CACHE={$bootstrapCache}/config.php");
+putenv("APP_ROUTES_CACHE={$bootstrapCache}/routes.php");
+putenv("APP_EVENTS_CACHE={$bootstrapCache}/events.php");
+
+$_ENV['APP_SERVICES_CACHE'] = "{$bootstrapCache}/services.php";
+$_ENV['APP_PACKAGES_CACHE'] = "{$bootstrapCache}/packages.php";
+$_ENV['APP_CONFIG_CACHE'] = "{$bootstrapCache}/config.php";
+$_ENV['APP_ROUTES_CACHE'] = "{$bootstrapCache}/routes.php";
+$_ENV['APP_EVENTS_CACHE'] = "{$bootstrapCache}/events.php";
+
+$_SERVER['APP_SERVICES_CACHE'] = "{$bootstrapCache}/services.php";
+$_SERVER['APP_PACKAGES_CACHE'] = "{$bootstrapCache}/packages.php";
+$_SERVER['APP_CONFIG_CACHE'] = "{$bootstrapCache}/config.php";
+$_SERVER['APP_ROUTES_CACHE'] = "{$bootstrapCache}/routes.php";
+$_SERVER['APP_EVENTS_CACHE'] = "{$bootstrapCache}/events.php";
 
 $targetDb = '/tmp/database.sqlite';
 $sourceDb = __DIR__ . '/../database/database.sqlite';
