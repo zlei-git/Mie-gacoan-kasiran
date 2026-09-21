@@ -3,62 +3,71 @@
 @section('title', 'Mie Gacoan - Restoran Mie Nomor 1 di Indonesia')
 
 @section('content')
-<!-- Hero Section (KFC Commercial Banner Style: Graphic Lockup Frame + Natural Bright Photo) -->
-<section class="relative min-h-[92vh] sm:min-h-screen flex items-center bg-stone-950 text-white overflow-hidden py-24 sm:py-32 lg:py-40">
-    <!-- Natural Bright Background Dish Image (No Dark/Blue Tint) -->
+<!-- Hero Section (Restored Original Mie Gacoan Hero Banner) -->
+<section class="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center text-white overflow-hidden py-24 sm:py-32 lg:py-40">
+    <!-- Natural Bright Background Dish Image (Subtle soft dark overlay for crystal text contrast) -->
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('images/hero-dish.png') }}" 
              alt="Hidangan Spesial Mie Gacoan, Dimsum, dan Minuman Segar" 
              class="w-full h-full object-cover object-center">
-        <!-- Soft Neutral Black Gradient on Left for Text Contrast (No Blue Hue) -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent pointer-events-none"></div>
+        <!-- Soft Natural Gradient (No blue tint, clear natural warmth) -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 pointer-events-none"></div>
     </div>
 
-    <!-- Banner Content Container (Left-Aligned Graphic Lockup Frame like KFC Banner) -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div class="max-w-2xl">
-            
-            <!-- KFC-Style Graphic Tagline Lockup Frame -->
-            <div data-animate="fadeInLeft" class="inline-block relative border-2 border-white rounded-2xl sm:rounded-3xl p-6 sm:p-9 md:p-10 backdrop-blur-md bg-black/50 shadow-2xl">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase font-heading tracking-tight leading-[1.05] drop-shadow-md">
-                    JAGONYA<br>MIE PEDAS
-                </h1>
-                <div class="mt-3 sm:mt-4 flex items-center gap-3">
-                    <span class="h-0.5 w-6 sm:w-10 bg-rose-500"></span>
-                    <span class="text-xs sm:text-sm md:text-base font-bold text-white tracking-widest uppercase font-heading drop-shadow-sm">
-                        Jaminan Cita Rasa Juara
-                    </span>
-                    <span class="h-0.5 w-6 sm:w-10 bg-rose-500"></span>
-                </div>
-            </div>
-
-            <!-- Official Brand Credentials & Social Handles (Matching KFC's Bottom-Left Watermark) -->
-            <div data-animate="fadeInUp" data-delay="150" class="mt-6 sm:mt-8 space-y-2">
-                <div class="inline-flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-white px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 shadow-md">
-                    <span class="inline-flex items-center gap-1.5 font-bold text-white">
-                        <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Halal ID00410000262430722
-                    </span>
-                    <span class="text-white/40">|</span>
-                    <span class="text-white font-semibold">@mie.gacoan</span>
-                    <span class="text-white/40">|</span>
-                    <span class="text-slate-100">www.miegacoan.co.id</span>
-                </div>
-                <p class="text-[11px] text-white/90 drop-shadow-md font-medium">
-                    *Selama persediaan masih ada. S&amp;K Berlaku. Gambar hidangan sebagai media promosi.
-                </p>
-            </div>
-
+    <!-- Centered Brand Content -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+        
+        <!-- Top Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium tracking-wider mb-6 text-slate-200 shadow-md">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+            <span>PT PESTA PORA ABADI &bull; RESTORAN MIE NO. 1 DI INDONESIA</span>
         </div>
-    </div>
 
-    <!-- Bottom-Right Brand Tagline Watermark (like KFC Jagonya Ayam!) -->
-    <div class="hidden sm:block absolute bottom-6 sm:bottom-8 right-6 sm:right-10 z-10 text-right select-none opacity-95">
-        <span class="text-lg sm:text-xl font-black text-white italic tracking-wider font-heading drop-shadow-lg">
-            MIE GACOAN <span class="text-rose-500 font-bold not-italic text-sm sm:text-base drop-shadow-sm">Jagonya Mie!</span>
-        </span>
+        <!-- Big Brand Title -->
+        <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tight leading-none mb-4 font-heading drop-shadow-2xl">
+            MIE GACOAN
+        </h1>
+
+        <!-- Catchphrase Subtitle -->
+        <h2 class="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold uppercase tracking-widest text-rose-400 mb-6 font-heading drop-shadow-md">
+            MENGGERAKKAN SELERA, MENGHADIRKAN CITA RASA JUARA
+        </h2>
+
+        <!-- Description Paragraph -->
+        <p class="max-w-2xl text-xs sm:text-sm md:text-base text-slate-200 font-medium leading-relaxed mb-8 drop-shadow">
+            Lebih dari satu dekade kami menyajikan racikan mie pedas kenyal berkualitas, aneka dimsum renyah, dan minuman segar penawar dahaga dengan harga terjangkau bagi jutaan penikmat kuliner di seluruh Nusantara.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 w-full sm:w-auto">
+            <a href="{{ route('menu.index') }}" 
+               class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm sm:text-base shadow-xl shadow-rose-950/40 flex items-center justify-center gap-2 transition-all duration-200 hover:scale-105 active:scale-95">
+                <span>Pesan Menu Sekarang</span>
+                <span>&rarr;</span>
+            </a>
+            <a href="{{ route('booking.index') }}" 
+               class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white font-bold text-sm sm:text-base shadow-lg flex items-center justify-center gap-2 transition-all duration-200 hover:scale-105 active:scale-95">
+                <span>Reservasi Meja</span>
+                <span>&rarr;</span>
+            </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-white/95">
+            <span class="inline-flex items-center gap-1.5 font-semibold bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-sm">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                100% Halal Resmi BPJPH
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-semibold bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-sm">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                Bahan Segar Harian
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-semibold bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-sm">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                Racikan Asli Otentik
+            </span>
+        </div>
+
     </div>
 </section>
 

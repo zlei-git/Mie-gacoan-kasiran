@@ -70,33 +70,13 @@
             scroll-behavior: smooth;
         }
 
-        /* Scroll Reveal Base */
+        /* Scroll Reveal Base - Default to visible so content never disappears */
         .reveal-on-scroll, [data-animate] {
-            opacity: 0;
-            will-change: opacity, transform;
-            transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1),
-                        transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-
-        [data-animate="fadeInUp"], .reveal-on-scroll:not([data-animate]) {
-            transform: translateY(32px);
-        }
-        [data-animate="fadeInDown"] {
-            transform: translateY(-32px);
-        }
-        [data-animate="fadeInLeft"] {
-            transform: translateX(-32px);
-        }
-        [data-animate="fadeInRight"] {
-            transform: translateX(32px);
-        }
-        [data-animate="zoomIn"] {
-            transform: scale(0.92);
-        }
-
-        .reveal-on-scroll.is-revealed, [data-animate].is-revealed {
             opacity: 1;
             transform: translate(0, 0) scale(1);
+            will-change: opacity, transform;
+            transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+                        transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
 
         /* Staggered Delay Helpers */

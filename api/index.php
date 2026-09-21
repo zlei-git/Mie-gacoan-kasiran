@@ -15,6 +15,12 @@ putenv("LOG_CHANNEL=stderr");
 putenv("APP_MAINTENANCE_DRIVER=file");
 $_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
 $_SERVER['APP_MAINTENANCE_DRIVER'] = 'file';
+putenv("APP_URL=https://gacoankasir.vercel.app");
+$_ENV['APP_URL'] = 'https://gacoankasir.vercel.app';
+$_SERVER['APP_URL'] = 'https://gacoankasir.vercel.app';
+$_SERVER['HTTPS'] = 'on';
+$_SERVER['SERVER_PORT'] = 443;
+$_SERVER['HTTP_X_FORWARDED_PROTO'] = 'https';
 putenv("VERCEL=1");
 
 $tmpStorage = '/tmp/storage';
