@@ -15,27 +15,27 @@
             <p class="text-xs text-slate-500">Gunakan akun Anda untuk memesan, operasional kasir, atau akses manajemen.</p>
         </div>
 
-        <!-- Demo Credentials Info Guide (Clean, No Emojis, No Bypass Buttons!) -->
-        <div class="p-4 rounded-xl bg-white border border-slate-200 text-xs space-y-2 text-slate-700">
-            <div class="font-bold text-slate-900 font-heading text-xs">
-                Informasi Kredensial Percobaan (Demo)
+        <!-- Demo Credentials Info Guide (Clickable to autofill) -->
+        <div class="p-4 rounded-xl bg-white border border-slate-200 text-xs space-y-2.5 text-slate-700">
+            <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-900 font-heading text-xs">Pilihan Akun Login (Klik untuk Isi Otomatis)</span>
+                <span class="text-[10px] text-slate-400 font-mono">Password: password</span>
             </div>
-            <p class="text-[11px] text-slate-500 leading-relaxed">
-                Silakan ketik atau salin email &amp; kata sandi di bawah ini ke dalam form login:
-            </p>
-            <div class="space-y-1 pt-1 font-mono text-[11px]">
-                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 flex justify-between items-center">
-                    <div><span class="font-semibold text-slate-900">Pelanggan:</span> user@demo.test</div>
-                    <span class="text-slate-400">password</span>
-                </div>
-                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 flex justify-between items-center">
-                    <div><span class="font-semibold text-slate-900">Kasir:</span> kasir@demo.test</div>
-                    <span class="text-slate-400">password</span>
-                </div>
-                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 flex justify-between items-center">
-                    <div><span class="font-semibold text-slate-900">Admin:</span> admin@demo.test</div>
-                    <span class="text-slate-400">password</span>
-                </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+                <button type="button" onclick="fillCredentials('kasir@miegacoan.co.id', 'password')" class="p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-rose-50 hover:border-rose-300 text-left transition group">
+                    <div class="font-bold text-slate-900 group-hover:text-rose-600 flex items-center justify-between">
+                        <span>Akun Kasir</span>
+                        <span class="text-[10px] text-slate-400">&rarr;</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 font-mono truncate">kasir@miegacoan.co.id</div>
+                </button>
+                <button type="button" onclick="fillCredentials('admin@miegacoan.co.id', 'password')" class="p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-rose-50 hover:border-rose-300 text-left transition group">
+                    <div class="font-bold text-slate-900 group-hover:text-rose-600 flex items-center justify-between">
+                        <span>Akun Admin</span>
+                        <span class="text-[10px] text-slate-400">&rarr;</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 font-mono truncate">admin@miegacoan.co.id</div>
+                </button>
             </div>
         </div>
 
@@ -53,8 +53,8 @@
                 @csrf
 
                 <div class="space-y-1">
-                    <label for="email" class="text-xs font-bold text-slate-700">Alamat Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus placeholder="nama@email.com" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:border-slate-500">
+                    <label for="email" class="text-xs font-bold text-slate-700">Email atau Username</label>
+                    <input type="text" name="email" id="email" value="{{ old('email') }}" required autofocus placeholder="admin / kasir atau email" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:border-slate-500">
                 </div>
 
                 <div class="space-y-1">
@@ -83,4 +83,16 @@
         </div>
     </div>
 </div>
+
+<script>
+function fillCredentials(email, password) {
+    var emailInput = document.getElementById('email');
+    var passwordInput = document.getElementById('password');
+    if (emailInput && passwordInput) {
+        emailInput.value = email;
+        passwordInput.value = password;
+        emailInput.focus();
+    }
+}
+</script>
 @endsection

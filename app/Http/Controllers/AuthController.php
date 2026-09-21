@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()) {
             return $this->redirectBasedOnRole(Auth::user());
         }
         return view('auth.login');
@@ -20,19 +20,33 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+        $input = trim($request->input('email', ''));
+        $password = $request->input('password', '');
+
+        // Map short username to email if entered
+        if ($input === 'admin') {
+            $input = 'admin@miegacoan.co.id';
+        } elseif ($input === 'kasir') {
+            $input = 'kasir@miegacoan.co.id';
+        }
 
         $remember = $request->boolean('remember');
 
-        if (Auth::attempt($credentials, $remember)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
+        // Try authenticating with entered email, or fallback to demo.test / miegacoan.co.id
+        $attempts = [
+            $input,
+            str_replace('@demo.test', '@miegacoan.co.id', $input),
+            str_replace('@miegacoan.co.id', '@demo.test', $input),
+        ];
 
-            return $this->redirectBasedOnRole($user)
-                ->with('toast_success', 'Selamat datang kembali, ' . $user->name . '!');
+        foreach (array_unique($attempts) as $emailCandidate) {
+            if (Auth::attempt(['email' => $emailCandidate, 'password' => $password], $remember)) {
+                $request->session()->regenerate();
+                $user = Auth::user();
+
+                return $this->redirectBasedOnRole($user)
+                    ->with('toast_success', 'Selamat datang kembali, ' . $user->name . '!');
+            }
         }
 
         return back()->withErrors([
@@ -42,7 +56,7 @@ class AuthController extends Controller
 
     public function showRegisterForm()
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()) {
             return $this->redirectBasedOnRole(Auth::user());
         }
         return view('auth.register');
@@ -82,8 +96,12 @@ class AuthController extends Controller
             ->with('toast_info', 'Anda telah berhasil keluar.');
     }
 
-    private function redirectBasedOnRole(User $user)
+    private function redirectBasedOnRole(?User $user)
     {
+        if (!$user) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
         if ($user->isAdmin()) {
             return redirect()->route('admin.dashboard');
         }

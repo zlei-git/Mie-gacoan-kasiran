@@ -5,12 +5,21 @@ putenv("APP_KEY=base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=");
 $_ENV['APP_KEY'] = 'base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=';
 $_SERVER['APP_KEY'] = 'base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=';
 
+putenv("APP_NAME=MieGacoan");
+$_ENV['APP_NAME'] = 'MieGacoan';
+$_SERVER['APP_NAME'] = 'MieGacoan';
+
 putenv("APP_ENV=production");
 putenv("APP_DEBUG=false");
 $_ENV['APP_DEBUG'] = 'false';
 $_SERVER['APP_DEBUG'] = 'false';
 putenv("CACHE_STORE=array");
-putenv("SESSION_DRIVER=cookie");
+putenv("SESSION_DRIVER=file");
+$_ENV['SESSION_DRIVER'] = 'file';
+$_SERVER['SESSION_DRIVER'] = 'file';
+putenv("SESSION_SECURE_COOKIE=true");
+$_ENV['SESSION_SECURE_COOKIE'] = 'true';
+$_SERVER['SESSION_SECURE_COOKIE'] = 'true';
 putenv("LOG_CHANNEL=stderr");
 putenv("APP_MAINTENANCE_DRIVER=file");
 $_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
@@ -70,8 +79,11 @@ $_SERVER['APP_EVENTS_CACHE'] = "{$bootstrapCache}/events.php";
 
 $targetDb = '/tmp/database.sqlite';
 $sourceDb = __DIR__ . '/../database/database.sqlite';
-if (!file_exists($targetDb) && file_exists($sourceDb)) {
-    @copy($sourceDb, $targetDb);
+if (file_exists($sourceDb)) {
+    if (!file_exists($targetDb) || filesize($targetDb) !== filesize($sourceDb)) {
+        @copy($sourceDb, $targetDb);
+        @chmod($targetDb, 0666);
+    }
 }
 
 putenv("DB_CONNECTION=sqlite");
