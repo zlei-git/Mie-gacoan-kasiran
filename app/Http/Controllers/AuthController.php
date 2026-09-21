@@ -21,6 +21,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            try {
+                $test = password_hash('password', PASSWORD_BCRYPT, ['cost' => 12]);
+            } catch (\Throwable $err) {
+                return response()->json([
+                    'real_error' => $err->getMessage(),
+                    'class' => get_class($err),
+                    'supported_algos' => function_exists('password_algos') ? password_algos() : [],
+                ], 500);
+            }
+
             $input = trim($request->input('email', ''));
             $password = $request->input('password', '');
 
