@@ -10,9 +10,9 @@ $_ENV['APP_NAME'] = 'MieGacoan';
 $_SERVER['APP_NAME'] = 'MieGacoan';
 
 putenv("APP_ENV=production");
-putenv("APP_DEBUG=false");
-$_ENV['APP_DEBUG'] = 'false';
-$_SERVER['APP_DEBUG'] = 'false';
+putenv("APP_DEBUG=true");
+$_ENV['APP_DEBUG'] = 'true';
+$_SERVER['APP_DEBUG'] = 'true';
 putenv("CACHE_STORE=array");
 putenv("SESSION_DRIVER=file");
 $_ENV['SESSION_DRIVER'] = 'file';
