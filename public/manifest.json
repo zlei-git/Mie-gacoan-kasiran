@@ -1,11 +1,11 @@
 {
-  "name": "Kedai Mie — Sistem Pemesanan Anti Ribet",
-  "short_name": "Kedai Mie",
-  "description": "Pesan mandiri tanpa ribet antre. Pilihan Pickup Now, Schedule Pickup, dan Dine-In di meja.",
+  "name": "Mie Gacoan - Restoran Mie Nomor 1 di Indonesia",
+  "short_name": "Mie Gacoan",
+  "description": "Pesan menu mie pedas, dimsum, dan es segar tanpa ribet antre. Pilihan Dine-In, Takeaway, dan Delivery.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FAF8F3",
-  "theme_color": "#18181A",
+  "background_color": "#020617",
+  "theme_color": "#e11d48",
   "orientation": "portrait-primary",
   "icons": [
     {
