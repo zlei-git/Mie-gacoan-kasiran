@@ -21,6 +21,14 @@ $app = Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+        $exceptions->render(function (\Throwable $e, Request $request) {
+            return response(
+                "<h1>Original Error: " . htmlspecialchars($e->getMessage()) . "</h1>" .
+                "<p><b>" . htmlspecialchars($e->getFile()) . "</b> on line " . $e->getLine() . "</p>" .
+                "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>",
+                500
+            );
+        });
     })->create();
 
 if (getenv('VERCEL') || isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || is_dir('/tmp/storage')) {

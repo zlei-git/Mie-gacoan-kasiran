@@ -1,5 +1,4 @@
 <?php
-echo "HELLO FROM VERCEL"; exit;
 
 // Ensure essential environment variables for Vercel
 putenv("APP_KEY=base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=");
