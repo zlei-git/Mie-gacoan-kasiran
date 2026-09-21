@@ -35,16 +35,16 @@
             <!-- Official Brand Credentials & Social Handles -->
             <div class="mt-6 sm:mt-8 space-y-2">
                 <div class="inline-flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-white px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 shadow-md">
-                    <span class="inline-flex items-center gap-1.5 font-bold text-emerald-400">
+                    <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-400">
                         <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        Halal ID00410000262430722
+                        Halal 100%
                     </span>
                     <span class="text-white/40">|</span>
                     <span class="text-white font-semibold">@mie.gacoan</span>
                     <span class="text-white/40">|</span>
-                    <span class="text-slate-100">www.miegacoan.co.id</span>
+                    <span class="text-slate-100 font-semibold">www.miegacoan.co.id</span>
                 </div>
                 <p class="text-[11px] text-white/90 drop-shadow-md font-medium">
                     *Selama persediaan masih ada. S&amp;K Berlaku. Gambar hidangan sebagai media promosi.
