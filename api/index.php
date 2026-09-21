@@ -6,9 +6,9 @@ $_ENV['APP_KEY'] = 'base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=';
 $_SERVER['APP_KEY'] = 'base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=';
 
 putenv("APP_ENV=production");
-putenv("APP_DEBUG=true");
-$_ENV['APP_DEBUG'] = 'true';
-$_SERVER['APP_DEBUG'] = 'true';
+putenv("APP_DEBUG=false");
+$_ENV['APP_DEBUG'] = 'false';
+$_SERVER['APP_DEBUG'] = 'false';
 putenv("CACHE_STORE=array");
 putenv("SESSION_DRIVER=cookie");
 putenv("LOG_CHANNEL=stderr");
@@ -76,14 +76,4 @@ $_ENV['DB_CONNECTION'] = 'sqlite';
 $_ENV['DB_DATABASE'] = $targetDb;
 $_SERVER['DB_CONNECTION'] = 'sqlite';
 $_SERVER['DB_DATABASE'] = $targetDb;
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-try {
-    require __DIR__ . '/../public/index.php';
-} catch (\Throwable $e) {
-    echo "<h1>Boot Exception: " . htmlspecialchars($e->getMessage()) . "</h1>";
-    echo "<p><b>File:</b> " . htmlspecialchars($e->getFile()) . " on line " . $e->getLine() . "</p>";
-    echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
-}
+require __DIR__ . '/../public/index.php';
