@@ -21,14 +21,34 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            $hasher = app('hash')->driver('bcrypt');
+            $refMethod = new \ReflectionMethod($hasher, 'cost');
+            $refMethod->setAccessible(true);
+            $costVal = $refMethod->invoke($hasher, []);
+
             try {
-                \Illuminate\Support\Facades\Hash::make('password');
-            } catch (\Throwable $err) {
+                $rawHash = password_hash('password', PASSWORD_BCRYPT, ['cost' => $costVal]);
+            } catch (\Throwable $phErr) {
                 return response()->json([
-                    'hash_make_error' => $err->getMessage(),
-                    'class' => get_class($err),
-                    'hashing_config' => config('hashing'),
-                    'bcrypt_rounds_env' => getenv('BCRYPT_ROUNDS'),
+                    'step' => 'password_hash_failed',
+                    'costVal' => $costVal,
+                    'costType' => gettype($costVal),
+                    'error' => $phErr->getMessage(),
+                    'class' => get_class($phErr),
+                ], 500);
+            }
+
+            try {
+                $hasher->make('password');
+            } catch (\Throwable $mErr) {
+                return response()->json([
+                    'step' => 'hasher_make_failed',
+                    'costVal' => $costVal,
+                    'costType' => gettype($costVal),
+                    'rawHash' => $rawHash,
+                    'hasher_class' => get_class($hasher),
+                    'error' => $mErr->getMessage(),
+                    'class' => get_class($mErr),
                 ], 500);
             }
 
