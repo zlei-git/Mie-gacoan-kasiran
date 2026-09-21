@@ -69,6 +69,7 @@ class AuthController extends Controller
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
+                'trace' => explode("\n", $e->getTraceAsString()),
             ], 500);
         }
     }
