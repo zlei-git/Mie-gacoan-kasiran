@@ -35,7 +35,8 @@
     "APP_KEY": "base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=",
     "DB_CONNECTION": "sqlite",
     "CACHE_STORE": "array",
-    "SESSION_DRIVER": "cookie",
+    "SESSION_DRIVER": "file",
+    "SESSION_LIFETIME": "120",
     "LOG_CHANNEL": "stderr"
   }
 }
