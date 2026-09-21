@@ -22,12 +22,10 @@ $app = Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
         $exceptions->render(function (\Throwable $e, Request $request) {
-            return response(
-                "<h1>Original Boot Exception: " . htmlspecialchars($e->getMessage()) . "</h1>" .
-                "<p><b>" . htmlspecialchars($e->getFile()) . "</b> on line " . $e->getLine() . "</p>" .
-                "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>",
-                500
-            );
+            echo "<h1>Original Boot Exception: " . htmlspecialchars($e->getMessage()) . "</h1>";
+            echo "<p><b>" . htmlspecialchars($e->getFile()) . "</b> on line " . $e->getLine() . "</p>";
+            echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
+            exit;
         });
     })->create();
 
