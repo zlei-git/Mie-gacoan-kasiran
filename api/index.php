@@ -1,19 +1,5 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-register_shutdown_function(function() {
-    $error = error_get_last();
-    if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
-        http_response_code(500);
-        header('Content-Type: application/json');
-        echo json_encode(['fatal_error' => $error], JSON_PRETTY_PRINT);
-        exit;
-    }
-});
-
 // Ensure essential environment variables for Vercel
 putenv("APP_KEY=base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=");
 $_ENV['APP_KEY'] = 'base64:oyO9ojD/U2iNroCF0BHkP+U5TG0ULjMuMkQ5Mt7hon8=';
@@ -23,12 +9,13 @@ putenv("APP_NAME=MieGacoan");
 $_ENV['APP_NAME'] = 'MieGacoan';
 $_SERVER['APP_NAME'] = 'MieGacoan';
 
-putenv("APP_ENV=local");
-$_ENV['APP_ENV'] = 'local';
-$_SERVER['APP_ENV'] = 'local';
-putenv("APP_DEBUG=true");
-$_ENV['APP_DEBUG'] = 'true';
-$_SERVER['APP_DEBUG'] = 'true';
+putenv("APP_ENV=production");
+putenv("APP_DEBUG=false");
+$_ENV['APP_DEBUG'] = 'false';
+$_SERVER['APP_DEBUG'] = 'false';
+putenv("BCRYPT_ROUNDS=12");
+$_ENV['BCRYPT_ROUNDS'] = 12;
+$_SERVER['BCRYPT_ROUNDS'] = 12;
 putenv("CACHE_STORE=array");
 putenv("SESSION_DRIVER=file");
 $_ENV['SESSION_DRIVER'] = 'file';

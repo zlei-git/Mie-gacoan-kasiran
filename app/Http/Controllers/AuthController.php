@@ -20,79 +20,38 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        try {
-            $hasher = app('hash')->driver('bcrypt');
-            $refMethod = new \ReflectionMethod($hasher, 'cost');
-            $refMethod->setAccessible(true);
-            $costVal = $refMethod->invoke($hasher, []);
+        $input = trim($request->input('email', ''));
+        $password = $request->input('password', '');
 
-            try {
-                $rawHash = password_hash('password', PASSWORD_BCRYPT, ['cost' => $costVal]);
-            } catch (\Throwable $phErr) {
-                return response()->json([
-                    'step' => 'password_hash_failed',
-                    'costVal' => $costVal,
-                    'costType' => gettype($costVal),
-                    'error' => $phErr->getMessage(),
-                    'class' => get_class($phErr),
-                ], 500);
-            }
-
-            try {
-                $hasher->make('password');
-            } catch (\Throwable $mErr) {
-                return response()->json([
-                    'step' => 'hasher_make_failed',
-                    'costVal' => $costVal,
-                    'costType' => gettype($costVal),
-                    'rawHash' => $rawHash,
-                    'hasher_class' => get_class($hasher),
-                    'error' => $mErr->getMessage(),
-                    'class' => get_class($mErr),
-                ], 500);
-            }
-
-            $input = trim($request->input('email', ''));
-            $password = $request->input('password', '');
-
-            // Map short username to email if entered
-            if ($input === 'admin') {
-                $input = 'admin@miegacoan.co.id';
-            } elseif ($input === 'kasir') {
-                $input = 'kasir@miegacoan.co.id';
-            }
-
-            $remember = $request->boolean('remember');
-
-            // Try authenticating with entered email, or fallback to demo.test / miegacoan.co.id
-            $attempts = [
-                $input,
-                str_replace('@demo.test', '@miegacoan.co.id', $input),
-                str_replace('@miegacoan.co.id', '@demo.test', $input),
-            ];
-
-            foreach (array_unique($attempts) as $emailCandidate) {
-                if (Auth::attempt(['email' => $emailCandidate, 'password' => $password], $remember)) {
-                    $request->session()->regenerate();
-                    $user = Auth::user();
-
-                    return $this->redirectBasedOnRole($user)
-                        ->with('toast_success', 'Selamat datang kembali, ' . $user->name . '!');
-                }
-            }
-
-            return back()->withErrors([
-                'email' => 'Email atau kata sandi yang Anda masukkan tidak sesuai.',
-            ])->onlyInput('email');
-        } catch (\Throwable $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => explode("\n", $e->getTraceAsString()),
-            ], 500);
+        // Map short username to email if entered
+        if ($input === 'admin') {
+            $input = 'admin@miegacoan.co.id';
+        } elseif ($input === 'kasir') {
+            $input = 'kasir@miegacoan.co.id';
         }
+
+        $remember = $request->boolean('remember');
+
+        // Try authenticating with entered email, or fallback to demo.test / miegacoan.co.id
+        $attempts = [
+            $input,
+            str_replace('@demo.test', '@miegacoan.co.id', $input),
+            str_replace('@miegacoan.co.id', '@demo.test', $input),
+        ];
+
+        foreach (array_unique($attempts) as $emailCandidate) {
+            if (Auth::attempt(['email' => $emailCandidate, 'password' => $password], $remember)) {
+                $request->session()->regenerate();
+                $user = Auth::user();
+
+                return $this->redirectBasedOnRole($user)
+                    ->with('toast_success', 'Selamat datang kembali, ' . $user->name . '!');
+            }
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau kata sandi yang Anda masukkan tidak sesuai.',
+        ])->onlyInput('email');
     }
 
     public function showRegisterForm()
