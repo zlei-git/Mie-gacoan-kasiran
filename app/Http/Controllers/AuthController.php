@@ -22,12 +22,13 @@ class AuthController extends Controller
     {
         try {
             try {
-                $test = password_hash('password', PASSWORD_BCRYPT, ['cost' => 12]);
+                \Illuminate\Support\Facades\Hash::make('password');
             } catch (\Throwable $err) {
                 return response()->json([
-                    'real_error' => $err->getMessage(),
+                    'hash_make_error' => $err->getMessage(),
                     'class' => get_class($err),
-                    'supported_algos' => function_exists('password_algos') ? password_algos() : [],
+                    'hashing_config' => config('hashing'),
+                    'bcrypt_rounds_env' => getenv('BCRYPT_ROUNDS'),
                 ], 500);
             }
 
