@@ -15,17 +15,28 @@ putenv("LOG_CHANNEL=stderr");
 putenv("VERCEL=1");
 
 $tmpStorage = '/tmp/storage';
-$bootstrapCache = $tmpStorage . '/bootstrap/cache';
+$bootstrapDir = $tmpStorage . '/bootstrap';
+$bootstrapCache = $bootstrapDir . '/cache';
 $dirs = [
     $tmpStorage . '/framework/views',
     $tmpStorage . '/framework/sessions',
     $tmpStorage . '/framework/cache/data',
     $tmpStorage . '/logs',
+    $bootstrapDir,
     $bootstrapCache
 ];
 foreach ($dirs as $dir) {
     if (!is_dir($dir)) {
         @mkdir($dir, 0777, true);
+    }
+}
+
+// Copy bootstrap files so $app->useBootstrapPath has providers.php and app.php
+foreach (['providers.php', 'app.php'] as $bFile) {
+    $src = __DIR__ . '/../bootstrap/' . $bFile;
+    $dst = $bootstrapDir . '/' . $bFile;
+    if (file_exists($src) && !file_exists($dst)) {
+        @copy($src, $dst);
     }
 }
 
