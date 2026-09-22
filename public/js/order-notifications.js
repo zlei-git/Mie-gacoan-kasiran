@@ -117,7 +117,7 @@
         
         // Glowing red accent bar
         const accent = document.createElement('div');
-        accent.className = 'absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 via-amber-400 to-rose-600 animate-pulse';
+        accent.className = 'absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 via-amber-400 to-rose-600';
         toast.appendChild(accent);
 
         let actionUrl = window.location.pathname.startsWith('/admin') ? '/admin/orders' : null;
@@ -128,10 +128,7 @@
         toast.innerHTML += `
             <div class="flex items-start justify-between gap-3">
                 <div class="flex items-center gap-2">
-                    <span class="flex h-3 w-3 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
-                    </span>
+                    <span class="h-2.5 w-2.5 rounded-full bg-rose-500 inline-block"></span>
                     <span class="text-xs font-black uppercase tracking-wider text-rose-400">
                         ${isInitial ? 'Pesanan Aktif Menunggu' : 'Pesanan Baru Masuk!'}
                     </span>
@@ -298,9 +295,9 @@
 
         const notice = document.createElement('div');
         notice.id = 'newOrderPageRefreshNotice';
-        notice.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-stone-900 border-2 border-amber-400 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 animate-bounce cursor-pointer';
+        notice.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-stone-900 border-2 border-amber-400 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 cursor-pointer';
         notice.innerHTML = `
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
             <span class="text-xs font-bold">Ada pesanan baru masuk! Klik untuk memuat ulang daftar.</span>
             <span class="text-xs bg-amber-400 text-stone-950 px-2 py-0.5 rounded-full font-black">Refresh</span>
         `;
