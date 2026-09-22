@@ -159,4 +159,71 @@ class PosController extends Controller
 
         return back()->with('toast_success', 'Status pesanan ' . $order->order_code . ' diperbarui ke: ' . $newStatus);
     }
+
+    public function liveOrderFeed(Request $request)
+    {
+        $lastId = intval($request->query('last_id', 0));
+
+        // Active orders that are waiting in kitchen or pending
+        $activeOrders = Order::whereIn('status', ['in_kitchen', 'pending'])
+            ->orderBy('id', 'desc')
+            ->take(20)
+            ->get();
+
+        $maxId = Order::max('id') ?? 0;
+
+        // New orders strictly greater than last_id
+        $newOrders = [];
+        if ($lastId > 0 && $maxId > $lastId) {
+            $newOrders = Order::where('id', '>', $lastId)
+                ->orderBy('id', 'asc')
+                ->get();
+        }
+
+        $formatOrder = function ($order) {
+            $itemsText = [];
+            if (is_array($order->items)) {
+                foreach ($order->items as $item) {
+                    $qty = $item['quantity'] ?? 1;
+                    $name = $item['name'] ?? 'Item';
+                    $spicy = isset($item['spicy_level']) && $item['spicy_level'] !== null ? " (Lv.{$item['spicy_level']})" : '';
+                    $itemsText[] = "{$qty}x {$name}{$spicy}";
+                }
+            }
+
+            $typeLabel = match ($order->order_type) {
+                'dine_in' => 'Dine In ' . ($order->table_number ? "(Meja {$order->table_number})" : ''),
+                'pickup_now' => 'Takeaway / Ambil Sendiri',
+                'delivery' => 'Delivery Antar',
+                default => ucfirst(str_replace('_', ' ', (string) $order->order_type)),
+            };
+
+            return [
+                'id' => $order->id,
+                'order_code' => $order->order_code,
+                'customer_name' => $order->customer_name,
+                'customer_phone' => $order->customer_phone,
+                'order_type_label' => $typeLabel,
+                'table_number' => $order->table_number,
+                'status' => $order->status,
+                'payment_status' => $order->payment_status,
+                'payment_method' => strtoupper((string) $order->payment_method),
+                'total' => $order->total,
+                'total_formatted' => 'Rp ' . number_format($order->total, 0, ',', '.'),
+                'items_summary' => implode(', ', array_slice($itemsText, 0, 3)) . (count($itemsText) > 3 ? ' +' . (count($itemsText) - 3) . ' lainnya' : ''),
+                'items_count' => count($itemsText),
+                'created_at_time' => $order->created_at ? $order->created_at->format('H:i') : '',
+                'created_at_diff' => $order->created_at ? $order->created_at->diffForHumans() : 'Baru saja',
+            ];
+        };
+
+        return response()->json([
+            'success' => true,
+            'latest_id' => $maxId,
+            'active_count' => $activeOrders->count(),
+            'active_orders' => $activeOrders->map($formatOrder),
+            'new_orders' => collect($newOrders)->map($formatOrder),
+            'server_time' => now()->format('H:i:s'),
+        ]);
+    }
 }

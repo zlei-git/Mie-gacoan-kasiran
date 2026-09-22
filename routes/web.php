@@ -38,6 +38,10 @@ Route::middleware('auth')->group(function () {
 });
 
 // --- Kasir / POS Routes (Role: kasir, admin) ---
+Route::middleware(['auth', 'role:kasir,admin'])->group(function () {
+    Route::get('/orders/live-feed', [PosController::class, 'liveOrderFeed'])->name('orders.live_feed');
+});
+
 Route::middleware(['auth', 'role:kasir,admin'])->prefix('pos')->name('pos.')->group(function () {
     Route::get('/', [PosController::class, 'index'])->name('index');
     Route::post('/orders', [PosController::class, 'store'])->name('store');
